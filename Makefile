@@ -1,6 +1,6 @@
 .PHONY: commit
 commit: ## git commit
-	git commit --allow-empty -m "test: `date +%Y-%M-%dT%H:%m%S`"
+	git commit --allow-empty -m "test: `date +%Y-%M-%dT%H:%m:%S`"
 
 .PHONY: lint.shell
 lint.shell: ## Shell script を lint
