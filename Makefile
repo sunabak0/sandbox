@@ -2,9 +2,17 @@
 commit: ## git commit
 	git commit --allow-empty -m "test: `date +%Y-%M-%dT%H:%m%S`"
 
+.PHONY: lint.shell
+lint.shell: ## Shell script を lint
+	docker run --rm --mount type=bind,source=${PWD}/,target=/mnt koalaman/shellcheck:stable **/*.sh
+
 ################################################################################
 # git 関連
 ################################################################################
+.PHONY: git.pull-submodule
+git.pull-submodule: ## git submodule を持ってくる
+	git submodule update --init --recursive
+
 .PHONY: git.update-submodule
 git.update-submodule: ## git submodule を最新版にアップデート
 	git submodule update --init --recursive --remote
