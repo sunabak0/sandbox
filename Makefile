@@ -1,6 +1,8 @@
-.PHONY: commit
-commit: ## git commit
+.PHONY: commit-and-push
+commit-and-push: ## commit && push
+	git stage .github scripts/ Makefile
 	git commit --allow-empty -m "test: `date +%Y-%M-%dT%H:%m:%S`"
+	git push origin HEAD
 
 .PHONY: lint.shell
 lint.shell: ## Shell script を lint
@@ -13,6 +15,10 @@ lint.gh-action: ## GitHub Action を lint
 ################################################################################
 # git 関連
 ################################################################################
+.PHONY: git.create-pr-for-submodule-updates
+git.create-pr-for-submodule-updates: ## submodule の更新 PR を作成する
+	@bash scripts/create-pr-for-submodule-updates.sh
+
 .PHONY: git.check-for-submodule-updates
 git.check-for-submodule-updates: ## submodule の更新があるかどうかチェックする
 	@bash scripts/check-for-submodule-updates
