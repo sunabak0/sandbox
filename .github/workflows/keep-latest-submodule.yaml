@@ -15,14 +15,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: リポジトリのチェックアウト
-        uses: actions/checkout@v3
       - name: githubの中身を見る
         run: |
           echo "----"
-          echo "${github.event}"
+          echo "${GITHUB_EVENT}"
           echo "--"
-          echo "${github.ref}"
+          echo "${GITHUB_REF}"
+        env:
+          GITHUB_EVENT: ${{ github.event }}
+          GITHUB_REF: ${{ github.event }}
+
+#      - name: リポジトリのチェックアウト
+#        uses: actions/checkout@v3
 #      - name: github-commentをインストール
 #        run: |
 #          curl -sSfL -o github-comment.tar.gz "https://github.com/suzuki-shunsuke/github-comment/releases/download/v${GITHUB_COMMENT_VERSION}/github-comment_${GITHUB_COMMENT_VERSION}_linux_amd64.tar.gz"
