@@ -30,6 +30,27 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: true ## サブモジュールも一緒に checkout (default: false)
+      - name: debug
+        run: |
+          echo '---1'
+          ls -al akiyadego-openapi
+          echo '---2'
+          ls -al .git/modules/akiyadego-openapi/
+          echo '---3'
+          cat .git/modules/akiyadego-openapi/ORIG_HEAD
+          echo '---4'
+          cat .git/modules/akiyadego-openapi/HEAD
+          echo '---5'
+          make git.pull-submodule
+          echo '---6'
+          ls -al akiyadego-openapi
+          echo '---7'
+          ls -al .git/modules/akiyadego-openapi/
+          echo '---8'
+          cat .git/modules/akiyadego-openapi/ORIG_HEAD
+          echo '---9'
+          cat .git/modules/akiyadego-openapi/HEAD
+
       - name: github-commentをインストール
         run: |
           curl -sSfL -o github-comment.tar.gz "https://github.com/suzuki-shunsuke/github-comment/releases/download/v${GITHUB_COMMENT_VERSION}/github-comment_${GITHUB_COMMENT_VERSION}_linux_amd64.tar.gz"
