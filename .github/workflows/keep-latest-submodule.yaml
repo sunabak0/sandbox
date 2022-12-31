@@ -50,3 +50,4 @@ jobs:
         run: github-comment exec -- make git.create-pr-for-submodule-updates
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CURRENT_BRANCH: ${{ github.head_ref }}
