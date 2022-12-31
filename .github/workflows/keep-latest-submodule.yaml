@@ -18,12 +18,9 @@ jobs:
     steps:
       - name: githubの中身を見る
         run: |
-          echo "----"
-          echo "${GITHUB_EVENT}"
           echo "--"
           echo "${GITHUB_REF}"
         env:
-          GITHUB_EVENT: ${{ github.event.pull_request }}
           GITHUB_REF: ${{ github.ref }}
 
 #      - name: リポジトリのチェックアウト
