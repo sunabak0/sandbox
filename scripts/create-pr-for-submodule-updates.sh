@@ -64,16 +64,19 @@ function store_module_commit_ids() {
 
 function close_pr_and_create_new_pr_if_not_exist_pr() {
   readonly BRANCH_NAME="${PR_BRANCH_PREFIX}/${CURRENT_MODULE_COMMIT_ID:0:8}-to-${LATEST_MODULE_COMMIT_ID:0:8}"
-  branch_count=$(gh pr list --search "head:${BRANCH_NAME} is:open" --json title --jq '.[].title' | wc -l | tr -d ' ')
+  readonly branch_count=$(gh pr list --search "head:${BRANCH_NAME} is:open" --json title --jq '.[].title' | wc -l | tr -d ' ')
+  readonly commit_title="chore(submodule): update ${SUBMODULE} to ${LATEST_MODULE_COMMIT_ID:0:8}"
   if [[ "${branch_count}" == 0 ]]; then
     git switch -c "${BRANCH_NAME}" ## 既にあればエラーで落ちる
     git stage "${SUBMODULE}"
-    readonly commit_title="chore(deps): update ${SUBMODULE} to ${LATEST_MODULE_COMMIT_ID:0:8}"
     git -c user.name='bot' -c user.email='action@github.com' commit -m "${commit_title}"
-    gh pr create --base main --head "${BRANCH_NAME}" --title "${commit_title}" --body ""
-  else
-    echo 既に PR は作成済みです
+    git push origin "${BRANCH_NAME}"
+    gh pr create --base main --title "${commit_title}" --body ""
   fi
+  readonly pr_url="$(gh pr list --search "head:${BRANCH_NAME} is:open" --json url --jq '.[0].url')"
+  gh pr comment "${pr_url}" --body "以下の PR を Review & Approve & Squash and Merge をして、 rebase してください
+  - [${commit_title}](${pr_url})
+  "
 }
 
 function main() {
@@ -85,9 +88,3 @@ function main() {
 }
 
 main
-
-echo '============='
-echo "${CURRENT_BRANCH}"
-echo "${CURRENT_MODULE_COMMIT_ID}"
-echo "${LATEST_MODULE_COMMIT_ID}"
-echo '============='
