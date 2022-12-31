@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: リポジトリのチェックアウト
         uses: actions/checkout@v3
+        with:
+          submodules: true ## サブモジュールも一緒に checkout (default: false)
       - name: github-commentをインストール
         run: |
           curl -sSfL -o github-comment.tar.gz "https://github.com/suzuki-shunsuke/github-comment/releases/download/v${GITHUB_COMMENT_VERSION}/github-comment_${GITHUB_COMMENT_VERSION}_linux_amd64.tar.gz"
