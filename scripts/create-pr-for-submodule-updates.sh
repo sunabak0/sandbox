@@ -15,7 +15,14 @@
 # - To: main
 #
 
-git submodule update --init --recursive --remote
-cd akiyadego-openapi && git switch main && git restore .
-git submodule status akiyadego-openapi | tr -d ' ' | sed 's/^+//'
+readonly CURRENT_BRANCH=${CURRENT_BRANCH:-$(git branch --show-current)}
+echo "----"
+echo ${CURRENT_BRANCH}
+echo "----"
+
+git status
+
+#git submodule update --init --recursive --remote
+#cd akiyadego-openapi && git switch main && git restore .
+#git submodule status akiyadego-openapi | tr -d ' ' | sed 's/^+//'
 
