@@ -20,9 +20,9 @@ function exist_diff_from_the_latest() {
 }
 
 if exist_diff_from_the_latest; then
-  echo "👍 Good: submodule: ${GIT_SUBMODULE} is latest."
+  echo "👍 Nothing submodule updates: ${GIT_SUBMODULE} submodule is latest."
   exit 0
 else
-  echo "👺 NG: submodule: ${GIT_SUBMODULE} is not latest." >&2
+  echo "🧐 Found submodule updates: ${GIT_SUBMODULE} submodule is up to date." >&2
   exit 1
 fi

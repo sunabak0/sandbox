@@ -37,7 +37,7 @@ jobs:
           GITHUB_COMMENT_VERSION: 5.0.0
       - name: 古いコメントを削除
         run: |
-          github-comment hide -condition 'Comment.Body contains "NG: submodule: "'
+          github-comment hide -condition 'Comment.Body contains "make git.check-for-submodule-update"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: submodule が最新版であるかチェック
