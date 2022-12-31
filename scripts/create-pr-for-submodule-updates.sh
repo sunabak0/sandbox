@@ -27,7 +27,7 @@ cd -
 current_module_commit_id="$(git submodule status | sed 's/^ //' | cut -d ' ' -f1)"
 readonly current_module_commit_id
 git submodule update --init --recursive --remote
-latest_module_commit_id="$(git submodule status | tr -d '+' | cut -d ' ' -f1)"
+latest_module_commit_id="$(git submodule status | sed 's/^(+| )//' | cut -d ' ' -f1)"
 
 echo '============='
 echo "${CURRENT_BRANCH}"
