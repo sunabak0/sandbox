@@ -13,6 +13,10 @@ lint.gh-action: ## GitHub Action を lint
 ################################################################################
 # git 関連
 ################################################################################
+.PHONY: git.check-for-submodule-updates
+git.check-for-submodule-updates: ## submodule の更新があるかどうかチェックする
+	@bash scripts/check-for-submodule-updates
+
 .PHONY: git.pull-submodule
 git.pull-submodule: ## git submodule を持ってくる
 	git submodule update --init --recursive

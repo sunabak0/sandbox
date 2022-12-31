@@ -41,7 +41,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: submodule が最新版であるかチェック
-        run: github-comment exec -- bash scripts/create-update-gitsubmodule-pr.sh
+        run: github-comment exec -- make git.check-for-submodule-updates
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: submodule が古いので PR を作成

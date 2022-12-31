@@ -1,0 +1,28 @@
+#!/bin/bash
+
+################################################################################
+# Check for submodule updates
+################################################################################
+#
+# 概要
+# - submodule に更新があるかチェック
+#
+# exit code: 0 : 更新はない ( 最新状態である )
+# exit code: 1 : 更新がある
+#
+
+GIT_SUBMODULE="akiyadego-openapi"
+readonly GIT_SUBMODULE
+
+function exist_diff_from_the_latest() {
+  git submodule update --init --recursive --remote "${GIT_SUBMODULE}"
+  git status --short ${GIT_SUBMODULE} | wc -l | grep -q 0
+}
+
+if exist_diff_from_the_latest; then
+  echo "👍 Good: submodule: ${GIT_SUBMODULE} is latest."
+  exit 0
+else
+  echo "👺 NG: submodule: ${GIT_SUBMODULE} is not latest." >&2
+  exit 1
+fi
