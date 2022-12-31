@@ -13,7 +13,7 @@ set -eu
 #
 # PR
 # - From: main
-# - Branch name: update-submodule/${LATEST_COMMIT_ID}
+# - Branch name: update-submodule/${CURRENT_COMMIT_ID}-to-${LATEST_COMMIT_ID}
 # - To: main
 #
 
@@ -38,13 +38,9 @@ function stash_diff_for_local_dev() {
 # 最新状態の main branch に切り替え
 #
 function switch_latest_main_branch() {
-  echo 'ok'
   git fetch
-  echo 'ok2'
   git switch main
-  echo 'ok3'
   git pull
-  echo 'ok4'
 }
 
 #
@@ -62,7 +58,7 @@ function store_module_commit_ids() {
   readonly LATEST_MODULE_COMMIT_ID
 }
 
-function exist_pr() {
+function close_pr_and_create_new_pr_if_not_exist_pr() {
   readonly BRANCH_NAME="${PR_BRANCH_PREFIX}/${CURRENT_MODULE_COMMIT_ID:0:4}-to-${LATEST_MODULE_COMMIT_ID:0:4}"
   gh pr list --search "head:${BRANCH_NAME} is:open" --json title --jq '.[].title'
 }
