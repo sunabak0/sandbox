@@ -22,15 +22,16 @@ readonly CURRENT_BRANCH="${CURRENT_BRANCH:-$(git branch --show-current)}"
 cd "${SUBMODULE}"
 git switch main
 git stage .
-git stash -q
+git stash -q -m "$(date +%Y-%m-%dT%H:%M:%S) : create-pr-for-submodule-udpates によって stash しました" > /dev/null
 cd -
-echo '=============hoge'
+git submodule deinit -f "${SUBMODULE}" > /dev/null
+echo '---'
 git submodule status
-echo '============='
-current_module_commit_id="$(git submodule status | sed 's/^ //' | cut -d ' ' -f1)"
+echo '---'
+current_module_commit_id="$(git submodule status | sed 's/^-//' | cut -d ' ' -f1)"
 readonly current_module_commit_id
-git submodule update --init --recursive --remote
-latest_module_commit_id="$(git submodule status | sed 's/^(+| )//' | cut -d ' ' -f1)"
+git submodule update --init --recursive --remote -q
+latest_module_commit_id="$(git submodule status | sed 's/^+//' | cut -d ' ' -f1)"
 
 echo '============='
 git submodule status
