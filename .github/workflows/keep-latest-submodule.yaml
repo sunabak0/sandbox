@@ -22,8 +22,8 @@ jobs:
           echo "--"
           echo "${GITHUB_REF}"
         env:
-          GITHUB_EVENT: ${{ github.event }}
-          GITHUB_REF: ${{ github.event }}
+          GITHUB_EVENT: ${{ github.event.pull_request }}
+          GITHUB_REF: ${{ github.ref }}
 
 #      - name: リポジトリのチェックアウト
 #        uses: actions/checkout@v3
