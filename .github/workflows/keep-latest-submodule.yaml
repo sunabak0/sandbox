@@ -25,9 +25,14 @@ jobs:
         env:
           GITHUB_COMMENT_VERSION: 5.0.0
       - name: 古いコメントを削除
-        run: github-comment hide -condition 'Comment.Body contains "NG: submodule: "'
+        run: |
+          github-comment hide -condition 'Comment.Body contains "NG: submodule: "'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: submodule が最新版であるかチェック
         run: github-comment exec -- bash scripts/create-update-gitsubmodule-pr.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: submodule が古いので PR を作成
         if: failure()
         run: |
