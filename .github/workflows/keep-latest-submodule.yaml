@@ -27,7 +27,7 @@ jobs:
     timeout-minutes: 5
     permissions:
       contents: write
-      pull_request: write
+      pull-requests: write
     steps:
       - name: リポジトリのチェックアウト
         uses: actions/checkout@v3
