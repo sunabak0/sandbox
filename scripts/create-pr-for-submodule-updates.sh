@@ -38,9 +38,13 @@ function stash_diff_for_local_dev() {
 # 最新状態の main branch に切り替え
 #
 function switch_latest_main_branch() {
-  git fetch main
+  echo 'ok'
+  git fetch
+  echo 'ok2'
   git switch main
+  echo 'ok3'
   git pull
+  echo 'ok4'
 }
 
 #
