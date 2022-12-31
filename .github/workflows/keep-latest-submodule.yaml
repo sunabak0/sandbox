@@ -13,7 +13,7 @@ name: Keep latest submodule
 
 jobs:
   keep-latest-submodule-for-pr:
-    if: ${{ github.event_name == "pull_request" }}
+    if: github.event_name == "pull_request"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -22,7 +22,7 @@ jobs:
 
 
   keep-latest-submodule-for-dispatch:
-    if: ${{ github.event_name == "workflow_dispatch" }}
+    if: github.event_name == "workflow_dispatch"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
