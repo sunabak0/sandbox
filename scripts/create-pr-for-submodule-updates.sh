@@ -24,13 +24,12 @@ git switch main
 git stage .
 git stash -q
 cd -
-current_module_commit_id="$(git submodule status | cut -d ' ' -f2)"
+current_module_commit_id="$(git submodule status | sed 's/^ //' | cut -d ' ' -f1)"
 readonly current_module_commit_id
 git submodule update --init --recursive --remote
-latest_module_commit_id="$(git submodule status | sed 's/^+/ /' | cut -d ' ' -f2)"
+latest_module_commit_id="$(git submodule status | tr -d '+' | cut -d ' ' -f1)"
 
 echo '============='
-echo "${WORKING_DIR}"
 echo "${CURRENT_BRANCH}"
 echo "${current_module_commit_id}"
 echo "${latest_module_commit_id}"
