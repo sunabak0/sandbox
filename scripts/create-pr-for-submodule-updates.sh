@@ -70,7 +70,7 @@ function close_pr_and_create_new_pr_if_not_exist_pr() {
     git switch -c "${BRANCH_NAME}" ## 既にあればエラーで落ちる
     git stage "${SUBMODULE}"
     git -c user.name='bot' -c user.email='action@github.com' commit -m "${commit_title}"
-    git push origin "${BRANCH_NAME}"
+    git push -f origin "${BRANCH_NAME}"
     gh pr create --base main --title "${commit_title}" --body ""
   fi
   readonly pr_url="$(gh pr list --search "head:${BRANCH_NAME} is:open" --json url --jq '.[0].url')"
