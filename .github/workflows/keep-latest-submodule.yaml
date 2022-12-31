@@ -17,23 +17,29 @@ jobs:
     steps:
       - name: リポジトリのチェックアウト
         uses: actions/checkout@v3
-      - name: github-commentをインストール
+      - name: githubの中身を見る
         run: |
-          curl -sSfL -o github-comment.tar.gz "https://github.com/suzuki-shunsuke/github-comment/releases/download/v${GITHUB_COMMENT_VERSION}/github-comment_${GITHUB_COMMENT_VERSION}_linux_amd64.tar.gz"
-          echo 1da8cb9d52395018ec15f876347e204fe632c833baa1831ca36302dec1e0f97a  github-comment.tar.gz | sha256sum -c
-          sudo tar -C /usr/bin -xzf ./github-comment.tar.gz
-        env:
-          GITHUB_COMMENT_VERSION: 5.0.0
-      - name: 古いコメントを削除
-        run: |
-          github-comment hide -condition 'Comment.Body contains "NG: submodule: "'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: submodule が最新版であるかチェック
-        run: github-comment exec -- bash scripts/create-update-gitsubmodule-pr.sh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: submodule が古いので PR を作成
-        if: failure()
-        run: |
-          echo 'dame'
+          echo "----"
+          echo "${github.event}"
+          echo "--"
+          echo "${github.ref}"
+#      - name: github-commentをインストール
+#        run: |
+#          curl -sSfL -o github-comment.tar.gz "https://github.com/suzuki-shunsuke/github-comment/releases/download/v${GITHUB_COMMENT_VERSION}/github-comment_${GITHUB_COMMENT_VERSION}_linux_amd64.tar.gz"
+#          echo 1da8cb9d52395018ec15f876347e204fe632c833baa1831ca36302dec1e0f97a  github-comment.tar.gz | sha256sum -c
+#          sudo tar -C /usr/bin -xzf ./github-comment.tar.gz
+#        env:
+#          GITHUB_COMMENT_VERSION: 5.0.0
+#      - name: 古いコメントを削除
+#        run: |
+#          github-comment hide -condition 'Comment.Body contains "NG: submodule: "'
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: submodule が最新版であるかチェック
+#        run: github-comment exec -- bash scripts/create-update-gitsubmodule-pr.sh
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: submodule が古いので PR を作成
+#        if: failure()
+#        run: |
+#          echo 'dame'
