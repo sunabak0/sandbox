@@ -47,4 +47,4 @@ jobs:
       - name: submodule が古いので PR を作成
         if: failure()
         run: |
-          echo 'dame'
+          github-comment hide -condition 'Comment.Body contains "make git.create-pr-for-submodule-updates"'
