@@ -9,6 +9,10 @@ commit: ## git commit
 git.update-submodule: ## git submodule を最新版にアップデート
 	git submodule update --init --recursive --remote
 
+.PHONY: git.restore-submodule
+git.restore-submodule: ## git submodule をもとに戻す
+	cd akiyadego-openapi && git switch main && git restore .
+
 ################################################################################
 # Utility-Command help
 ################################################################################
