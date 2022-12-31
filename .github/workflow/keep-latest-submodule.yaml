@@ -1,0 +1,22 @@
+---
+name: Keep latest submodule
+
+#
+# 'on' にしている理由
+# yamllintで怒られるため
+#
+# 参考: https://github.com/adrienverge/yamllint/issues/430
+#
+'on':
+  workflow_dispatch:
+
+jobs:
+  keep-latest-submodule:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v3
+      - name: test
+        run: |
+          echo 'Hello'
