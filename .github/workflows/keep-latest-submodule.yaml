@@ -38,6 +38,7 @@ jobs:
       - name: 古いコメントを削除
         run: |
           github-comment hide -condition 'Comment.Body contains "make git.check-for-submodule-update"'
+          github-comment hide -condition 'Comment.Body contains "make git.create-pr-for-submodule-updates"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: submodule が最新版であるかチェック
@@ -46,5 +47,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: submodule が古いので PR を作成
         if: failure()
-        run: |
-          github-comment hide -condition 'Comment.Body contains "make git.create-pr-for-submodule-updates"'
+        run: github-comment exec -- make git.create-pr-for-submodule-updates
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
