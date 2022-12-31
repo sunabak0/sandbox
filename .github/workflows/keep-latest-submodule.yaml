@@ -12,39 +12,39 @@ name: Keep latest submodule
   workflow_dispatch:
 
 jobs:
-  keep-latest-submodule-for-dispatch:
+  keep-latest-submodule-for-pr:
+    if: ${{ github.event_name == "pull_request" }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: githubの中身を見る
-        run: |
-          echo "--"
-          echo "${GITHUB_REF}"
-          echo "--"
-          echo "${GITHUB_EVENT_NAME}"
-        env:
-          GITHUB_REF: ${{ github.ref }}
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v3
 
-#      - name: リポジトリのチェックアウト
-#        uses: actions/checkout@v3
-#      - name: github-commentをインストール
-#        run: |
-#          curl -sSfL -o github-comment.tar.gz "https://github.com/suzuki-shunsuke/github-comment/releases/download/v${GITHUB_COMMENT_VERSION}/github-comment_${GITHUB_COMMENT_VERSION}_linux_amd64.tar.gz"
-#          echo 1da8cb9d52395018ec15f876347e204fe632c833baa1831ca36302dec1e0f97a  github-comment.tar.gz | sha256sum -c
-#          sudo tar -C /usr/bin -xzf ./github-comment.tar.gz
-#        env:
-#          GITHUB_COMMENT_VERSION: 5.0.0
-#      - name: 古いコメントを削除
-#        run: |
-#          github-comment hide -condition 'Comment.Body contains "NG: submodule: "'
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      - name: submodule が最新版であるかチェック
-#        run: github-comment exec -- bash scripts/create-update-gitsubmodule-pr.sh
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      - name: submodule が古いので PR を作成
-#        if: failure()
-#        run: |
-#          echo 'dame'
+
+  keep-latest-submodule-for-dispatch:
+    if: ${{ github.event_name == "workflow_dispatch" }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v3
+      - name: github-commentをインストール
+        run: |
+          curl -sSfL -o github-comment.tar.gz "https://github.com/suzuki-shunsuke/github-comment/releases/download/v${GITHUB_COMMENT_VERSION}/github-comment_${GITHUB_COMMENT_VERSION}_linux_amd64.tar.gz"
+          echo 1da8cb9d52395018ec15f876347e204fe632c833baa1831ca36302dec1e0f97a  github-comment.tar.gz | sha256sum -c
+          sudo tar -C /usr/bin -xzf ./github-comment.tar.gz
+        env:
+          GITHUB_COMMENT_VERSION: 5.0.0
+      - name: 古いコメントを削除
+        run: |
+          github-comment hide -condition 'Comment.Body contains "NG: submodule: "'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: submodule が最新版であるかチェック
+        run: github-comment exec -- bash scripts/create-update-gitsubmodule-pr.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: submodule が古いので PR を作成
+        if: failure()
+        run: |
+          echo 'dame'
