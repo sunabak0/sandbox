@@ -42,7 +42,8 @@ jobs:
           echo '---4'
           cat .git/modules/akiyadego-openapi/HEAD
           echo '---5'
-          make git.pull-submodule
+          #make git.pull-submodule
+          make git.update-submodule
           echo '---6'
           ls -al akiyadego-openapi
           echo '---7'
