@@ -24,12 +24,16 @@ git switch main
 git stage .
 git stash -q
 cd -
+echo '=============hoge'
+git submodule status
+echo '============='
 current_module_commit_id="$(git submodule status | sed 's/^ //' | cut -d ' ' -f1)"
 readonly current_module_commit_id
 git submodule update --init --recursive --remote
 latest_module_commit_id="$(git submodule status | sed 's/^(+| )//' | cut -d ' ' -f1)"
 
 echo '============='
+git submodule status
 echo "${CURRENT_BRANCH}"
 echo "${current_module_commit_id}"
 echo "${latest_module_commit_id}"
