@@ -50,6 +50,7 @@ jobs:
       - name: submodule が古いので PR を作成
         if: failure()
         run: |
+          git fetch --all
           git switch main
           github-comment exec -- make git.create-pr-for-submodule-updates
         env:
