@@ -32,6 +32,8 @@ jobs:
           submodules: true ## サブモジュールも一緒に checkout (default: false)
       - name: debug
         run: |
+          echo '---0'
+          git submodule status akiyadego-openapi
           echo '---1'
           ls -al akiyadego-openapi
           echo '---2'
@@ -55,6 +57,8 @@ jobs:
           cat .git/modules/akiyadego-openapi/HEAD
           echo '---10'
           cat .git/modules/akiyadego-openapi/FETCH_HEAD
+          echo '---11'
+          git submodule status akiyadego-openapi
 
       - name: github-commentをインストール
         run: |

@@ -15,13 +15,18 @@
 # - To: main
 #
 
-git submodule update --init --recursive --remote
 
 readonly WORKING_DIR="$(git rev-parse --show-toplevel)"
 readonly SUBMODULE="akiyadego-openapi"
 readonly CURRENT_BRANCH="${CURRENT_BRANCH:-$(git branch --show-current)}"
 readonly CURRENT_SUBMODULE_COMMIT_ID="$(cat ${WORKING_DIR}/.git/modules/${SUBMODULE}/ORIG_HEAD)"
 readonly LATEST_SUBMODULE_COMMIT_ID="$(cat ${WORKING_DIR}/.git/modules/${SUBMODULE}/HEAD)"
+
+cd "${WORKING_DIR}/${SUBMODULE}"
+git switch main
+pwd
+
+git submodule update --init --recursive
 
 #cd akiyadego-openapi && git switch main && git restore .
 #git submodule status akiyadego-openapi | tr -d ' ' | sed 's/^+//'
