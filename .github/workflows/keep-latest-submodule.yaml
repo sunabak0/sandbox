@@ -36,6 +36,9 @@ jobs:
           ls -al akiyadego-openapi
           echo '---2'
           ls -al .git/modules/akiyadego-openapi/
+          echo '---3'
+          echo 'skip'
+          #cat .git/modules/akiyadego-openapi/ORIG_HEAD
           echo '---4'
           cat .git/modules/akiyadego-openapi/HEAD
           echo '---5'
@@ -45,7 +48,8 @@ jobs:
           echo '---7'
           ls -al .git/modules/akiyadego-openapi/
           echo '---8'
-          cat .git/modules/akiyadego-openapi/ORIG_HEAD
+          echo 'skip'
+          #cat .git/modules/akiyadego-openapi/ORIG_HEAD
           echo '---9'
           cat .git/modules/akiyadego-openapi/HEAD
 
