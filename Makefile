@@ -1,5 +1,5 @@
 .PHONY: commit-and-push
-commit-and-push: ## commit && push
+commit-and-push: ## commit && push test
 	git stage .github scripts/ Makefile
 	git commit --allow-empty -m "test: `date +%Y-%m-%dT%H:%M:%S`"
 	git push origin HEAD
