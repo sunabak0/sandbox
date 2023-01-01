@@ -33,6 +33,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: test
         run: |
-          github-comment exec -k hello -- bash -c 'echo hello'
+          github-comment exec -c .github/github-comment.yaml -k hello -- bash -c 'echo hello'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
