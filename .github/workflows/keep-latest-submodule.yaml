@@ -22,8 +22,7 @@ jobs:
 
 
   keep-latest-submodule-for-pr:
-    #if: github.event_name == 'pull_request'
-    if: false
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -56,7 +55,6 @@ jobs:
         run: |
           git fetch --all
           git switch main
-          github-comment exec -- make git.create-pr-for-submodule-updates
+          github-comment exec --config .github/github-comment.yaml -- make git.create-pr-for-submodule-updates
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CURRENT_BRANCH: ${{ github.head_ref }}

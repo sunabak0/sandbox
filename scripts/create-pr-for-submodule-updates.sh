@@ -19,7 +19,6 @@ set -eu
 # - Branch name: update-submodule/${CURRENT_COMMIT_ID}-to-${LATEST_COMMIT_ID}
 # - To: main
 #
-
 readonly SUBMODULE="akiyadego-openapi"
 readonly CURRENT_BRANCH="${CURRENT_BRANCH:-$(git branch --show-current)}"
 readonly PR_BRANCH_PREFIX="update-submodule"
@@ -64,7 +63,7 @@ function store_module_commit_ids() {
 
 #
 # 現在の branch を最新とし、それ以外は全て古い branch とみなす
-# branch 名で PR 検索をかけて、カウントを取り、 0 ならば
+# branch 名が一致する PR がない場合は、新しい PR を作る (古い PR があれば削除)
 #
 function close_pr_and_create_new_pr_if_not_exist_pr() {
   readonly branch_name="${PR_BRANCH_PREFIX}/${CURRENT_MODULE_COMMIT_ID:0:8}-to-${LATEST_MODULE_COMMIT_ID:0:8}"
@@ -84,13 +83,10 @@ function close_pr_and_create_new_pr_if_not_exist_pr() {
     gh pr create --base main --title "${title}" --body ""
   fi
 
-  # 大元の PR があれば、コメントで伝える ( local であれば、設定されない想定 )
-  if [[ "${ORIGINAL_PR_URL}" != "" ]]; then
-    readonly pr_url="$(gh pr list --search "head:${BRANCH_NAME} is:open" --json url --jq '.[0].url')"
-    gh pr comment "${pr_url}" --body "以下の PR を Review & Approve & Squash and Merge をして、 rebase してください
-    - [${title}](${pr_url})
-    "
-  fi
+  # PR url を取得し、出力
+  readonly pr_url="$(gh pr list --search "head:${BRANCH_NAME} is:open" --json url --jq '.[0].url')"
+  echo '以下の PR を Review -> Approve -> Merge まで行い、 `git rebase` してから `git push -f` してください'
+  echo "[${title}](${pr_url})"
 }
 
 function main() {
