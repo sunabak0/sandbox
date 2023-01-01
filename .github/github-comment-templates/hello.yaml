@@ -1,20 +1,17 @@
 ---
+vars:
+  buildlink: aaaaaaaaaaaaaa
+#    - type: template
+#      value: 'aaaaaaaaaaaaaaaaaaaaa'
+#value: '{{env "GITHUB_SERVER_URL"}/{{env "GITHUB_REPOSITORY"}}/actions/runs/{{env "GITHUB_RUN_ID"}}'
 exec:
   default:
     - when: true
       template: default-ok
   hello:
     - when: true
-      complement:
-        vars:
-          test: 'tttttttttttttttttt'
-          buildlink:
-          - type: template
-            value: 'aaaaaaaaaaaaaaaaaaaaa'
-            #value: '{{env "GITHUB_SERVER_URL"}/{{env "GITHUB_REPOSITORY"}}/actions/runs/{{env "GITHUB_RUN_ID"}}'
       template: |
-        🙅 {{.Complement.Vars.test}} 🙅
-        🙅 {{.Complement.Vars.buildlink}} 🙅
+        🙅 {{.Vars.buildlink}} 🙅
 
         exit code: {{.ExitCode}}
 
