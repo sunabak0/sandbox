@@ -8,9 +8,8 @@ exec:
       complement:
         vars:
           buildlink:
-            - type: envsubst
-              value: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-              #value: "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            - type: template
+              value: '{{env "GITHUB_SERVER_URL"}/{{env "GITHUB_REPOSITORY"}}/actions/runs/{{env "GITHUB_RUN_ID"}}'
       template: |
         🙅 {{.Vars.buildlink}}
 
