@@ -1,8 +1,8 @@
 ---
 vars:
-  buildlink: aaaaaaaaaaaaaa
-#    - type: template
-#      value: 'aaaaaaaaaaaaaaaaaaaaa'
+  buildlink:
+    - type: template
+      value: 'aaaaaaaaaaaaaaaaaaaaa'
 #value: '{{env "GITHUB_SERVER_URL"}/{{env "GITHUB_REPOSITORY"}}/actions/runs/{{env "GITHUB_RUN_ID"}}'
 exec:
   default:
