@@ -11,9 +11,10 @@ exec:
             - type: envsubst
               value: '${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'
       template: |
+        {{.buildlink}}
         exit code: {{.ExitCode}}
 
-        Command
+        実行されたコマンド
 
         ```
         $ {{.Command}}
