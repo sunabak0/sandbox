@@ -4,7 +4,8 @@ exec:
     #
     # whenで分岐させない (分岐させる例: ExitCode != 0)
     #
-    - when: true template: |
+    - when: true
+      template: |
         {{template "status" .}} {{template "link" .}}
 
         exit code: {{.ExitCode}}
