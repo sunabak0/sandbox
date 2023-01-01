@@ -76,15 +76,15 @@ function close_pr_and_create_new_pr_if_not_exist_pr() {
     gh pr list --search "head:${PR_BRANCH_PREFIX} is:open" --json url --jq '.[].url' | xargs -I{} gp pr close {}
 
     # Create PR
-    git switch -c "${BRANCH_NAME}" ## 既にあればエラーで落ちる ( local で多重実行した場合、落ちて欲しい )
+    git switch -c "${branch_name}" ## 既にあればエラーで落ちる ( local で多重実行した場合、落ちて欲しい )
     git stage "${SUBMODULE}"
     git -c user.name='bot' -c user.email='action@github.com' commit -m "${title}"
-    git push -f origin "${BRANCH_NAME}"
+    git push -f origin "${branch_name}"
     gh pr create --base main --title "${title}" --body ""
   fi
 
   # PR url を取得し、出力
-  readonly pr_url="$(gh pr list --search "head:${BRANCH_NAME} is:open" --json url --jq '.[0].url')"
+  readonly pr_url="$(gh pr list --search "head:${branch_name} is:open" --json url --jq '.[0].url')"
   echo '以下の PR を Review -> Approve -> Merge まで行い、 `git rebase` してから `git push -f` してください'
   echo "[${title}](${pr_url})"
 }
