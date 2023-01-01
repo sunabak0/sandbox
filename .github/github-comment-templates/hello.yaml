@@ -5,14 +5,16 @@ exec:
       template: default-ok
   hello:
     - when: true
-      #complement:
-      #  vars:
-      #    buildlink:
-      #      - type: template
-      #        value: 'aaaaaaaaaaaaaaaaaaaaa'
-      #        #value: '{{env "GITHUB_SERVER_URL"}/{{env "GITHUB_REPOSITORY"}}/actions/runs/{{env "GITHUB_RUN_ID"}}'
+      complement:
+        vars:
+          test: 'tttttttttttttttttt'
+          buildlink:
+          - type: template
+            value: 'aaaaaaaaaaaaaaaaaaaaa'
+            #value: '{{env "GITHUB_SERVER_URL"}/{{env "GITHUB_REPOSITORY"}}/actions/runs/{{env "GITHUB_RUN_ID"}}'
       template: |
-        🙅 {{env "GITHUB_SERVER_URL"}/{{env "GITHUB_REPOSITORY"}}/actions/runs/{{env "GITHUB_RUN_ID"}} 🙅
+        🙅 {{.Vars.test}} 🙅
+        🙅 {{.Vars.buildlink}} 🙅
 
         exit code: {{.ExitCode}}
 
