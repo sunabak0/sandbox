@@ -10,18 +10,23 @@ exec:
       template: default-ok
   hello:
     - when: true
-      template: aaaaaaaaaaaaaaaaa
-#      template: |
-#        exit code: {{.ExitCode}}
-#
-#        ```
-#        $ {{.Command}}
-#        ```
-#
-#        ```
-#        {{.CombinedOutput}}
-#        ```
-#
-#        ```
-#        {{.Stderr}}
-#        ```
+      template: |
+        exit code: {{.ExitCode}}
+
+        Command
+
+        ```
+        $ {{.Command}}
+        ```
+
+        Output
+
+        ```
+        {{.CombinedOutput}}
+        ```
+
+        StdErrOut
+
+        ```
+        {{.Stderr}}
+        ```
