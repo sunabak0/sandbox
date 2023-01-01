@@ -54,8 +54,13 @@ jobs:
       - name: submodule が古いので PR を作成
         if: failure()
         run: |
+          TEMP_DIR="$(mktemp)"
+          cp .github/github-comment.yaml "${TEMP_DIR}/"
+          cp scripts/create-pr-for-submodule-updates.sh "${TEMP_DIR}/"
           git fetch --all
           git switch main
+          cp "${TEMP_DIR}/github-comment.yaml" .github/github-comment.yaml
+          cp "${TEMP_DIR}/create-pr-for-submodule-updates.sh" scripts/create-pr-for-submodule-updates.sh
           github-comment exec --config .github/github-comment.yaml -- make git.create-pr-for-submodule-updates
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
