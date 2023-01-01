@@ -9,7 +9,8 @@ exec:
         vars:
           buildlink:
             - type: envsubst
-              value: '${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'
+              value: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              #value: "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
       template: |
         🙅 {{.Vars.buildlink}}
 
