@@ -14,16 +14,19 @@ exec:
           exit code: {{.ExitCode}}
 
           実行したコマンド
+
           ```
           $ {{.Command}}
           ```
 
          出力
+
           ```
           {{.CombinedOutput}}
           ```
 
           標準エラー出力 only
+
           ```
           {{.Stderr}}
           ```
