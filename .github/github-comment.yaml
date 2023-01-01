@@ -1,36 +1,8 @@
-#
-# github-comment の設定ファイル
-#
-# https://suzuki-shunsuke.github.io/github-comment/config/
-#
 ---
 exec:
   default:
-    template: |
-      default-ok
+    - when: true
+      template: default-ok
   hello:
     - when: true
-      template: |
-          exit code: {{.ExitCode}}
-
-          ```
-          $ {{.Command}}
-          ```
-
-          Stdout:
-
-          ```
-          {{.Stdout}}
-          ```
-
-          Stderr:
-
-          ```
-          {{.Stderr}}
-          ```
-
-          CombinedOutput:
-
-          ```
-          {{.CombinedOutput}}
-          ```
+      template: hello-ok
