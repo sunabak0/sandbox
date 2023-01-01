@@ -10,23 +10,18 @@ exec:
       template: default-ok
   hello:
     - when: true
-      template: |
-          exit code: {{.ExitCode}}
-
-          実行したコマンド
-
-          ```
-          $ {{.Command}}
-          ```
-
-         出力
-
-          ```
-          {{.CombinedOutput}}
-          ```
-
-          標準エラー出力 only
-
-          ```
-          {{.Stderr}}
-          ```
+      template: aaaaaaaaaaaaaaaaa
+#      template: |
+#        exit code: {{.ExitCode}}
+#
+#        ```
+#        $ {{.Command}}
+#        ```
+#
+#        ```
+#        {{.CombinedOutput}}
+#        ```
+#
+#        ```
+#        {{.Stderr}}
+#        ```
