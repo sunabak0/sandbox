@@ -2,29 +2,30 @@
 exec:
   default:
     - when: true
-      template: |
-        {{template "status" .}} {{template "link" .}}
-
-        exit code: {{.ExitCode}}
-
-        実行されたコマンド
-
-        ```
-        $ {{.Command}}
-        ```
-
-        <details>
-
-        Output
-
-        ```
-        {{.CombinedOutput | AvoidHTMLEscape}}
-        ```
-
-        StdErrOut
-
-        ```
-        {{.Stderr | AvoidHTMLEscape}}
-        ```
-
-        </details>
+      template: Hello
+#      template: |
+#        {{template "status" .}} {{template "link" .}}
+#
+#        exit code: {{.ExitCode}}
+#
+#        実行されたコマンド
+#
+#        ```
+#        $ {{.Command}}
+#        ```
+#
+#        <details>
+#
+#        Output
+#
+#        ```
+#        {{.CombinedOutput | AvoidHTMLEscape}}
+#        ```
+#
+#        StdErrOut
+#
+#        ```
+#        {{.Stderr | AvoidHTMLEscape}}
+#        ```
+#
+#        </details>
