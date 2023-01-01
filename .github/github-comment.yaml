@@ -1,10 +1,10 @@
 ---
 exec:
-  complement:
-    vars:
-      buildlink:
-        - type: envsubst
-          value: '${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'
+#  complement:
+#    vars:
+#      buildlink:
+#        - type: envsubst
+#          value: '${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'
   default:
     - when: true
       template: default-ok
