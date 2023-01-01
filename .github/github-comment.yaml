@@ -5,4 +5,27 @@ exec:
       template: default-ok
   hello:
     - when: true
-      template: hello-ok
+      template: |
+          exit code: {{.ExitCode}}
+
+          ```
+          $ {{.Command}}
+          ```
+
+          Stdout:
+
+          ```
+          {{.Stdout}}
+          ```
+
+          Stderr:
+
+          ```
+          {{.Stderr}}
+          ```
+
+          CombinedOutput:
+
+          ```
+          {{.CombinedOutput}}
+          ```
