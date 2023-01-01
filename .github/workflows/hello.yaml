@@ -12,6 +12,7 @@ name: Hello
 
 jobs:
   hello:
+    if: false
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
