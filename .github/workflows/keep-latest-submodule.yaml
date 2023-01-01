@@ -44,6 +44,7 @@ jobs:
         run: |
           github-comment hide -condition 'Comment.Body contains "make git.check-for-submodule-update"'
           github-comment hide -condition 'Comment.Body contains "make git.create-pr-for-submodule-updates"'
+          github-comment hide -condition 'Comment.Body contains "実行されたコマンド"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: submodule が最新版であるかチェック
