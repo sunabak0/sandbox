@@ -1,15 +1,15 @@
 ---
 exec:
-  complement:
-    vars:
-      buildlink:
-        - type: envsubst
-          value: '${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'
   default:
     - when: true
       template: default-ok
   hello:
     - when: true
+      complement:
+        vars:
+          buildlink:
+            - type: envsubst
+              value: '${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'
       template: |
         exit code: {{.ExitCode}}
 
