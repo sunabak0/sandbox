@@ -16,14 +16,18 @@ exec:
         $ {{.Command}}
         ```
 
+        <details>
+
         Output
 
         ```
-        {{.CombinedOutput}}
+        {{.CombinedOutput | AvoidHTMLEscape}}
         ```
 
         StdErrOut
 
         ```
-        {{.Stderr}}
+        {{.Stderr | AvoidHTMLEscape}}
         ```
+
+        </details>
