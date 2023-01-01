@@ -62,22 +62,35 @@ function store_module_commit_ids() {
   readonly LATEST_MODULE_COMMIT_ID
 }
 
+#
+# 現在の branch を最新とし、それ以外は全て古い branch とみなす
+# branch 名で PR 検索をかけて、カウントを取り、 0 ならば
+#
 function close_pr_and_create_new_pr_if_not_exist_pr() {
-  readonly BRANCH_NAME="${PR_BRANCH_PREFIX}/${CURRENT_MODULE_COMMIT_ID:0:8}-to-${LATEST_MODULE_COMMIT_ID:0:8}"
-  readonly branch_count=$(gh pr list --search "head:${BRANCH_NAME} is:open" --json title --jq '.[].title' | wc -l | tr -d ' ')
-  readonly commit_title="chore(submodule): update ${SUBMODULE} to ${LATEST_MODULE_COMMIT_ID:0:8}"
+  readonly branch_name="${PR_BRANCH_PREFIX}/${CURRENT_MODULE_COMMIT_ID:0:8}-to-${LATEST_MODULE_COMMIT_ID:0:8}"
+  readonly branch_count=$(gh pr list --search "head:${branch_name} is:open" --json title --jq '.[].title' | wc -l | tr -d ' ')
+  readonly title="chore(submodule): update ${SUBMODULE} to ${LATEST_MODULE_COMMIT_ID:0:8}"
+
+  # まだ PR がなければ、古い PR を close し、
   if [[ "${branch_count}" == 0 ]]; then
-    git switch -c "${BRANCH_NAME}" ## 既にあればエラーで落ちる
+    # Close PR
+    gh pr list --search "head:${PR_BRANCH_PREFIX} is:open" --json url --jq '.[].url' | xargs -I{} gp pr close {}
+
+    # Create PR
+    git switch -c "${BRANCH_NAME}" ## 既にあればエラーで落ちる ( local で多重実行した場合、落ちて欲しい )
     git stage "${SUBMODULE}"
-    git -c user.name='bot' -c user.email='action@github.com' commit -m "${commit_title}"
-    echo "debug: git push -f origin ${BRANCH_NAME}"
+    git -c user.name='bot' -c user.email='action@github.com' commit -m "${title}"
     git push -f origin "${BRANCH_NAME}"
-    gh pr create --base main --title "${commit_title}" --body ""
+    gh pr create --base main --title "${title}" --body ""
   fi
-  readonly pr_url="$(gh pr list --search "head:${BRANCH_NAME} is:open" --json url --jq '.[0].url')"
-  gh pr comment "${pr_url}" --body "以下の PR を Review & Approve & Squash and Merge をして、 rebase してください
-  - [${commit_title}](${pr_url})
-  "
+
+  # 大元の PR があれば、コメントで伝える ( local であれば、設定されない想定 )
+  if [[ "${ORIGINAL_PR_URL}" != "" ]]; then
+    readonly pr_url="$(gh pr list --search "head:${BRANCH_NAME} is:open" --json url --jq '.[0].url')"
+    gh pr comment "${pr_url}" --body "以下の PR を Review & Approve & Squash and Merge をして、 rebase してください
+    - [${title}](${pr_url})
+    "
+  fi
 }
 
 function main() {
