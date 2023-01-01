@@ -1,9 +1,4 @@
 ---
-vars:
-  buildlink:
-  - type: template
-    value: '{{env "GITHUB_SERVER_URL"}}'
-#value: '{{env "GITHUB_SERVER_URL"}/{{env "GITHUB_REPOSITORY"}}/actions/runs/{{env "GITHUB_RUN_ID"}}'
 exec:
   default:
     - when: true
@@ -11,7 +6,7 @@ exec:
   hello:
     - when: true
       template: |
-        🙅 {{.Vars.buildlink}} 🙅
+        {{template "status" .}} {{template "link" .}}
 
         exit code: {{.ExitCode}}
 
