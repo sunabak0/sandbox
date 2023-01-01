@@ -8,24 +8,17 @@ exec:
       template: |
           exit code: {{.ExitCode}}
 
+          実行したコマンド
           ```
           $ {{.Command}}
           ```
 
-          Stdout:
-
-          ```
-          {{.Stdout}}
-          ```
-
-          Stderr:
-
-          ```
-          {{.Stderr}}
-          ```
-
-          CombinedOutput:
-
+         出力
           ```
           {{.CombinedOutput}}
+          ```
+
+          標準エラー出力 only
+          ```
+          {{.Stderr}}
           ```
