@@ -1,0 +1,19 @@
+#
+# レビュアーとアサイン(担当者)の設定
+#
+# actions/auto-assign-action 用
+#
+# GitHub
+# - https://github.com/marketplace/actions/auto-assign-action
+#
+---
+
+# アサインを追加
+addAssignees: author
+
+# レビュアーを追加
+addReviewers: true
+
+# レビュアーのリスト
+reviewGroups:
+  - sunabak0/akiyadego
