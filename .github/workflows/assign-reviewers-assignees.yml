@@ -1,0 +1,30 @@
+---
+name: Assign PR Reviewers and Assignees
+
+#
+# 'on' にしている理由
+# yamllintで怒られるため
+#
+# 参考: https://github.com/adrienverge/yamllint/issues/430
+#
+'on':
+  pull_request_target:
+    types: [opened, ready_for_review]
+    branches-ignore:
+      - 'renovate/**'
+
+jobs:
+  assign-reviewers-assignees:
+    #
+    # PR 元が renovate 起因の場合、 job skip
+    # (renovate 起因の場合、ブランチ名は renovate/**)
+    #
+    if: ${{ !startsWith(github.head_ref, 'renovate/') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: PR にレビュアーとアサインを追加
+        uses: kentaro-m/auto-assign-action@v1.2.4
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: '.github/assign.yml'
