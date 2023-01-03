@@ -14,6 +14,9 @@ addAssignees: author
 # レビュアーを追加
 addReviewers: true
 
+# 異なるレビューグループをプルリクに追加する設定
+useReviewGroups: true
+
 # レビュアーのリスト
 reviewGroups:
   - sunabak0/akiyadego
